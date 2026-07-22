@@ -1,0 +1,258 @@
+// ===============================
+// Challenge 1: ATM Banking System
+// ===============================
+
+// Stored Data
+var userPin = "1234";
+var balance = 5000;
+var wrongAttempts = 0;
+var isLocked = false;
+
+// Check PIN (Maximum 3 Attempts)
+while (wrongAttempts < 3) {
+
+    var enteredPin = prompt("Enter your PIN:");
+
+    if (enteredPin === userPin) {
+
+        console.log("PIN is correct.");
+
+        var operation = prompt(
+            "Choose an operation:\n" +
+            "1 - Withdraw\n" +
+            "2 - Deposit\n" +
+            "3 - Check Balance\n" +
+            "4 - Change PIN"
+        );
+
+        switch (operation) {
+
+            case "1":
+
+                var withdrawAmount = Number(prompt("Enter amount to withdraw:"));
+
+                if (withdrawAmount <= balance && withdrawAmount > 0) {
+                    balance = balance - withdrawAmount;
+                    console.log("Withdrawal successful.");
+                    console.log("Current Balance: " + balance);
+                } else if (withdrawAmount > balance) {
+                    console.log("Error: Insufficient balance.");
+                } else {
+                    console.log("Error: Invalid amount.");
+                }
+
+                break;
+
+            case "2":
+
+                var depositAmount = Number(prompt("Enter amount to deposit:"));
+
+                if (depositAmount > 0) {
+                    balance = balance + depositAmount;
+                    console.log("Deposit successful.");
+                    console.log("Current Balance: " + balance);
+                } else {
+                    console.log("Error: Deposit amount must be greater than zero.");
+                }
+
+                break;
+
+            case "3":
+
+                console.log("Current Balance: " + balance);
+
+                break;
+
+            case "4":
+
+                var newPin = prompt("Enter new 4-digit PIN:");
+
+                if (newPin.length === 4 && !isNaN(newPin)) {
+                    userPin = newPin;
+                    console.log("PIN changed successfully.");
+                } else {
+                    console.log("Error: PIN must contain exactly 4 digits.");
+                }
+
+                break;
+
+            default:
+                console.log("Invalid operation.");
+        }
+
+        break;
+
+    } else {
+
+        wrongAttempts++;
+        console.log("Incorrect PIN.");
+
+        if (wrongAttempts === 3) {
+            isLocked = true;
+
+
+
+
+
+
+            // ===================================
+            // Challenge 2: E-Commerce Checkout System
+            // ===================================
+
+            // Store Information
+            var customerName = prompt("Enter Customer Name:");
+            var productCategory = prompt("Enter Product Category (Electronics, Clothes, Food):");
+            var productPrice = Number(prompt("Enter Product Price:"));
+            var quantity = Number(prompt("Enter Quantity:"));
+            var couponCode = prompt("Enter Coupon Code (or leave empty):");
+            var paymentMethod = prompt("Enter Payment Method (Cash, Visa, Wallet):");
+
+            // Calculate Subtotal
+            var subtotal = productPrice * quantity;
+
+            // Category Discount
+            var categoryDiscount = 0;
+
+            if (productCategory === "Electronics") {
+                categoryDiscount = subtotal * 0.10; // 10%
+            } else if (productCategory === "Clothes") {
+                categoryDiscount = subtotal * 0.15; // 15%
+            } else if (productCategory === "Food") {
+                categoryDiscount = subtotal * 0.05; // 5%
+            }
+
+            // Price after Category Discount
+            var total = subtotal - categoryDiscount;
+
+            // Coupon Discount
+            var couponDiscount = 0;
+
+            if (couponCode === "SAVE10") {
+                couponDiscount = 10;
+            } else if (couponCode === "SAVE20") {
+                couponDiscount = 20;
+            }
+
+            total = total - couponDiscount;
+
+            // Payment Method Discount
+            var paymentDiscount = 0;
+
+            if (paymentMethod === "Visa") {
+                paymentDiscount = total * 0.05; // 5%
+            } else if (paymentMethod === "Wallet") {
+                paymentDiscount = total * 0.10; // 10%
+            }
+
+            total = total - paymentDiscount;
+
+            // Bonus
+            if (total < 0) {
+                total = 0;
+            }
+
+            // VAT (14%)
+            var vat = total * 0.14;
+
+            // Final Price
+            var finalPrice = total + vat;
+
+            // Invoice
+            console.log("========== INVOICE ==========");
+            console.log("Customer Name: " + customerName);
+            console.log("Product Category: " + productCategory);
+            console.log("Product Price: " + productPrice);
+            console.log("Quantity: " + quantity);
+            console.log("-----------------------------");
+            console.log("Subtotal: " + subtotal);
+            console.log("Category Discount: " + categoryDiscount);
+            console.log("Coupon Discount: " + couponDiscount);
+            console.log("Payment Discount: " + paymentDiscount);
+            console.log("Price Before VAT: " + total);
+            console.log("VAT: " + vat);
+            console.log("Final Price: " + finalPrice);
+            console.log("=============================");
+            console.log("Account Locked. Too many incorrect attempts.");
+        }
+
+    }
+}
+
+
+
+
+
+
+
+
+
+// ===================================
+// Challenge 3: University Student Portal
+// ===================================
+
+// Store Information
+var studentName = prompt("Enter Student Name:");
+var attendance = Number(prompt("Enter Attendance Percentage:"));
+var midtermScore = Number(prompt("Enter Midterm Score:"));
+var finalExamScore = Number(prompt("Enter Final Exam Score:"));
+var assignmentScore = Number(prompt("Enter Assignment Score:"));
+var tuitionStatus = prompt("Is Tuition Paid? (Yes / No)");
+
+// Check Tuition Payment
+if (tuitionStatus === "No") {
+
+    console.log("You cannot view your results because tuition is not paid.");
+
+} else {
+
+    // Check Attendance
+    if (attendance < 75) {
+
+        console.log("Student Name: " + studentName);
+        console.log("Status: Failed due to low attendance.");
+
+    } else {
+
+        // Calculate Total Score
+        var totalScore = midtermScore + finalExamScore + assignmentScore;
+
+        // Determine Letter Grade
+        var grade = "";
+
+        if (totalScore >= 90) {
+            grade = "A";
+        } else if (totalScore >= 80) {
+            grade = "B";
+        } else if (totalScore >= 70) {
+            grade = "C";
+        } else if (totalScore >= 60) {
+            grade = "D";
+        } else {
+            grade = "F";
+        }
+
+        // Determine Academic Status
+        var status = "";
+
+        if (totalScore >= 60) {
+            status = "Passed";
+        } else {
+            status = "Failed";
+        }
+
+        // Display Result
+        console.log("========== Student Result ==========");
+        console.log("Student Name: " + studentName);
+        console.log("Attendance: " + attendance + "%");
+        console.log("Total Score: " + totalScore);
+        console.log("Grade: " + grade);
+        console.log("Academic Status: " + status);
+
+        // Bonus
+        if (grade === "A") {
+            console.log("Congratulations! You are eligible for a scholarship.");
+        }
+
+    }
+
+}
